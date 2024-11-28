@@ -1,19 +1,15 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
-    public float Speed;
-    public float Jumpforce;
-    
-    public bool isJumping;
-    public bool doubleJump;
-    
-    private Rigidbody2D rig;
-    
+
+  public float Speed;
+  private Rigidbody2D rig;
+  public float JumpForce;
+  public bool isJumping;
+  public bool doubleJump;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,47 +22,48 @@ public class Player : MonoBehaviour
         Move();
         Jump();
     }
-    
+
     void Move()
     {
-        Vector3 moviment = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-        transform.position += moviment * Time.deltaTime * Speed;
+      Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+      transform.position += movement * Time.deltaTime * Speed;
     }
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump"))
-        {
-            if (!isJumping)
+      if(Input.GetButtonDown("Jump"))
+      {
+          if( isJumping == false)
+          {
+             rig.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+             doubleJump = true;
+          }
+          
+          else
+          {
+            if(doubleJump)
             {
-                rig.AddForce(new Vector2(0f, Jumpforce), ForceMode2D.Impulse);
-                doubleJump = true; 
+              rig.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+              doubleJump = false;
             }
+          }
+      
+      }
+    }
 
-            else
-            {
-                if (doubleJump)
-                {
-                    rig.AddForce(new Vector2(0f, Jumpforce), ForceMode2D.Impulse);
-                    doubleJump = false; 
-                }
-            }
-            
-        }
-    }
-    
-    void OnCollisionEnter2D(Collision2D collision)
+    void OncollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 8)
-        {
-            isJumping = false;
-        }
+      if(collision.gameObject.layer == 8)
+      {
+         isJumping = false;
+      }
     }
-    void OnCollisionExit(Collision collision)
+
+    void OncollisionExit(Collision2D collision)
     {
-        if (collision.gameObject.layer == 8)
-        {
-            isJumping = true;
-        }
+      if(collision.gameObject.layer == 8)
+      {
+         isJumping = true;
+      }
     }
 }
