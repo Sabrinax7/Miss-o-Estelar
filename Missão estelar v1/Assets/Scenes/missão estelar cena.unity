@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 828333133}
   - component: {fileID: 828333137}
   - component: {fileID: 828333138}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -738,6 +738,7 @@ MonoBehaviour:
   JumpForce: 11
   isJumping: 0
   doubleJump: 0
+  noGround: 0
 --- !u!95 &828333138
 Animator:
   serializedVersion: 5

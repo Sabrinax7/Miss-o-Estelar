@@ -7,10 +7,15 @@ public class Player : MonoBehaviour
 
   public float Speed;
   private Rigidbody2D rig;
+
   public float JumpForce;
+
   public bool isJumping;
   public bool doubleJump;
+  public bool noGround;
+
   private Animator anim;
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -71,16 +76,18 @@ public class Player : MonoBehaviour
       }
     }
 
-    void OncollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
+    
       if(collision.gameObject.layer == 8)
       {
          isJumping = false;
          anim.SetBool("pulando", false);
+         
       }
     }
 
-    void OncollisionExit(Collision2D collision)
+    void OnCollisionExit2D(Collision2D collision)
     {
       if(collision.gameObject.layer == 8)
       {
