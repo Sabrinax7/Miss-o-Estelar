@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PowerUp : MonoBehaviour
 {
 
@@ -23,7 +24,9 @@ public class PowerUp : MonoBehaviour
 
             if(collider.gameObject.tag == "Player")
             {
-                  GameController.instance.TotalScore += Score;
+                  GameController.instance.totalScore += Score;
+                  GameController.instance.UpdateScoreText();
+
 
                  Destroy (gameObject);
             }
